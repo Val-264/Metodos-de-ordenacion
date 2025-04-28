@@ -71,6 +71,7 @@ void menu() {
                 if(vectorGlobal != nullptr) {
                     liberarEsp(vectorGlobal, vectorCopia);
                     vectorGlobal = nullptr;
+					vectorCopia = nullptr;
                     tamanoGlobal = 0;
                     cout << "Memoria liberada.\n";
                 } else {
