@@ -4,6 +4,8 @@
 #include <iostream>
 #include <time.h>    // Mejor usar <ctime> en lugar de <time.h>
 #include <stdlib.h>   // Mejor usar <cstdlib> en lugar of <stdlib.h>
+#include <chrono>    // libreria para medir el tiempo que tarda en ejecutarse
+
 using namespace std;
 
 // Prototipos
@@ -118,8 +120,16 @@ void menu() {
 						case 10: restaurarVecGlobal(vectorGlobal, vectorCopia);												
 								 gnomesort(vectorGlobal); break;
                     	
-						case 11: restaurarVecGlobal(vectorGlobal, vectorCopia);												
-								 mergesort(vectorGlobal); break;
+						case 11: 
+						restaurarVecGlobal(vectorGlobal, vectorCopia);
+        				{
+            				auto start = chrono::high_resolution_clock::now();				// Marca el tiempo de inicio antes de ejecutar el algoritmo de ordenación
+           					mergesort(vectorGlobal);										// Llama al algoritmo de ordenación 'mergesort' para ordenar el vector
+            				auto end = chrono::high_resolution_clock::now();				// Marca el tiempo de finalización después de que el algoritmo termine
+            				chrono::duration<double, milli> duration = end - start;	 		// Calcula la duración en milisegundos entre el tiempo de inicio y el de fin
+            				cout << "Tiempo de ejecucion: " << duration.count() << " ms\n";	// Imprime el tiempo que tardó el algoritmo en ordenar el vector en milisegundos
+        				}
+        				break;
                     	
 						case 12: restaurarVecGlobal(vectorGlobal, vectorCopia);												
 								 radixsort(vectorGlobal); break;
