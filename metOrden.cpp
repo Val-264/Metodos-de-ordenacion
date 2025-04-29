@@ -25,6 +25,7 @@ void gnomesort(int *vec);
 void mergesort(int *vec); 
 void radixsort(int *vec); 
 void quicksort(int *vec);
+void mostrarVec(int *vec);
 
 // Variable global para el vector (alternativa: pasar como parámetro)
 int *vectorGlobal = nullptr;
@@ -180,6 +181,7 @@ void restaurarVecGlobal(int *vecG, int *vecC) {
 	}
 }
 
+//Seleccion
 void seleccion(int *vec) {
 	int menor, aux;
 	for(int i = 0; i < tamanoGlobal-1; i++){
@@ -197,14 +199,11 @@ void seleccion(int *vec) {
 	}
 	
 	// Mostrar vector ordenado
-	for(int i = 0; i < tamanoGlobal; i++){
-		cout << vec[i] << "\t";	
-		if((i+1) % 5 == 0) cout << "\n";
-	}
-	
+	mostrarVec(vec);
 	cout<<"\n";
 }
 
+// Insercion
 void insercion(int *vec) {
 	int j = 0;
 	for(int i = 0; i < tamanoGlobal; i++){
@@ -218,14 +217,11 @@ void insercion(int *vec) {
 	}
 
 	// Mostrar vector ordenado
-	for(int i = 0; i < tamanoGlobal; i++){
-		cout << vec[i] << "\t";	
-		if((i+1) % 5 == 0) cout << "\n";
-	}
-		
+	mostrarVec(vec);
 	cout << "\n";
 }
 
+//burbuja
 void burbuja(int *vec) {
 	int aux = 0;
 	for(int i = 0; i < tamanoGlobal; i++){
@@ -239,11 +235,7 @@ void burbuja(int *vec) {
 	}
 
 	// Mostrar vector ordenado
-	for(int i = 0; i < tamanoGlobal; i++){
-		cout << vec[i] << "\t";	
-		if((i+1) % 5 == 0) cout << "\n";
-	}
-
+	mostrarVec(vec);
 	cout << "\n";		
 } 
 
@@ -263,6 +255,7 @@ void binsort(int *vec) {
 	cout << "Esta funcion no ha sido implementada";	
 } 
 
+//Sell
 void shell(int *vec) {
 	int j, temp;
 	int inc = tamanoGlobal/2;
@@ -280,30 +273,218 @@ void shell(int *vec) {
 	}	
 
 	// Mostrar vector ordenado
-	for(int i = 0; i < tamanoGlobal; i++){
-		cout << vec[i] << "\t";	
-		if((i+1) % 5 == 0) cout << "\n";
-	}
-	
+	mostrarVec(vec);
 	cout << "\n";	
 }
 
+//Shakesort
 void shakesort(int *vec) {
-	cout << "Esta funcion no ha sido implementada";	
+	bool swapped = true;
+	int start = 0;
+	int end = tamanoGlobal - 1;
+
+	while (swapped) {
+		swapped = false;
+
+		// Recorrer de izquierda a derecha
+		for (int i = start; i < end; ++i) {
+			if (vec[i] > vec[i + 1]) {
+				swap(vec[i], vec[i + 1]);
+				swapped = true;
+			}
+		}
+
+		// Si no hubo intercambio, el vector ya está ordenado
+		if (!swapped)
+			break;
+
+		// Decrementar el extremo derecho
+		--end;
+
+		swapped = false;
+
+		// Recorrer de derecha a izquierda
+		for (int i = end - 1; i >= start; --i) {
+			if (vec[i] > vec[i + 1]) {
+				swap(vec[i], vec[i + 1]);
+				swapped = true;
+			}
+		}
+
+		// Incrementar el extremo izquierdo
+		++start;
+	}
+
+	// Mostrar vector ordenado
+	mostrarVec(vec);
+	cout << "\n";
 } 
 
+// GnomeSort
 void gnomesort(int *vec) {
-	cout << "Esta funcion no ha sido implementada";	
+	int index = 0;
+	while (index < tamanoGlobal) {
+		if (index == 0 || vec[index] >= vec[index - 1]) {
+			index++;
+		} else {
+			swap(vec[index], vec[index - 1]);
+			index--;
+		}
+	}
+	// Mostrar vector ordenado
+	mostrarVec(vec);
+	cout << "\n";
 } 
 
+// MergeSort
+// Función para fusionar dos subarreglos ordenados
+void merge(int *vec, int inicio, int medio, int fin) {
+    int n1 = medio - inicio + 1;   // Tamaño del primer subarreglo
+    int n2 = fin - medio;          // Tamaño del segundo subarreglo
+
+    // Crear arreglos temporales
+    int *L = new int[n1];
+    int *R = new int[n2];
+
+    // Copiar los datos a los arreglos temporales L[] y R[]
+    for (int i = 0; i < n1; i++)
+        L[i] = vec[inicio + i];
+    for (int j = 0; j < n2; j++)
+        R[j] = vec[medio + 1 + j];
+
+    // Combinar los arreglos L[] y R[] en vec[]
+    int i = 0, j = 0, k = inicio;
+    while (i < n1 && j < n2) {
+        if (L[i] <= R[j]) {
+            vec[k] = L[i];
+            i++;
+        } else {
+            vec[k] = R[j];
+            j++;
+        }
+        k++;
+    }
+
+    // Copiar los elementos restantes de L[], si quedan
+    while (i < n1) {
+        vec[k] = L[i];
+        i++;
+        k++;
+    }
+
+    // Copiar los elementos restantes de R[], si quedan
+    while (j < n2) {
+        vec[k] = R[j];
+        j++;
+        k++;
+    }
+
+    delete[] L;
+    delete[] R;
+}
+
+// Función auxiliar recursiva de mergesort
+void mergeSortAux(int *vec, int inicio, int fin) {
+    if (inicio < fin) {
+        int medio = inicio + (fin - inicio) / 2;
+        mergeSortAux(vec, inicio, medio);      // Ordena la primera mitad
+        mergeSortAux(vec, medio + 1, fin);      // Ordena la segunda mitad
+        merge(vec, inicio, medio, fin);         // Fusiona las dos mitades
+    }
+}
+
+// Función principal llamada desde el main
 void mergesort(int *vec) {
-	cout << "Esta funcion no ha sido implementada";	
-} 
+    mergeSortAux(vec, 0, tamanoGlobal - 1);     // Llama a la función auxiliar
+    mostrarVec(vec);                            // Muestra el vector ordenado
+    cout << "\n";
+}
 
+// RadixSort
+// Función para obtener el valor máximo en el arreglo
+int getMax(int *vec) {
+    int mx = vec[0];
+    for (int i = 1; i < tamanoGlobal; i++)
+        if (vec[i] > mx)
+            mx = vec[i];
+    return mx;
+}
+
+// Función para realizar un counting sort basado en el dígito exp
+void countSort(int *vec, int exp) {
+    int *output = new int[tamanoGlobal];    // Arreglo temporal
+    int count[10] = {0};                    // Cuenta para cada dígito (0-9)
+
+    // Contar las ocurrencias de cada dígito
+    for (int i = 0; i < tamanoGlobal; i++)
+        count[(vec[i] / exp) % 10]++;
+
+    // Cambiar count[i] para que contenga las posiciones reales
+    for (int i = 1; i < 10; i++)
+        count[i] += count[i - 1];
+
+    // Construir el arreglo de salida
+    for (int i = tamanoGlobal - 1; i >= 0; i--) {
+        output[count[(vec[i] / exp) % 10] - 1] = vec[i];
+        count[(vec[i] / exp) % 10]--;
+    }
+
+    // Copiar el arreglo de salida al arreglo original
+    for (int i = 0; i < tamanoGlobal; i++)
+        vec[i] = output[i];
+
+    delete[] output;
+}
+
+// Función principal de radix sort
 void radixsort(int *vec) {
-	cout << "Esta funcion no ha sido implementada";	
-} 
+    int m = getMax(vec);    // Obtener el valor máximo
 
+    // Aplicar counting sort para cada dígito
+    for (int exp = 1; m / exp > 0; exp *= 10)
+        countSort(vec, exp);
+
+    mostrarVec(vec);        // Mostrar el vector ordenado
+    cout << "\n";
+}
+
+// QuickSort
+// Función para particionar el arreglo alrededor de un pivote
+int partition(int *vec, int low, int high) {
+    int pivot = vec[high];    // Pivote
+    int i = low - 1;          // Índice del elemento más pequeño
+
+    for (int j = low; j <= high - 1; j++) {
+        if (vec[j] < pivot) {
+            i++;
+            swap(vec[i], vec[j]);
+        }
+    }
+    swap(vec[i + 1], vec[high]);
+    return (i + 1);
+}
+
+// Función auxiliar recursiva de quicksort
+void quickSortAux(int *vec, int low, int high) {
+    if (low < high) {
+        int pi = partition(vec, low, high);    // Índice del pivote
+        quickSortAux(vec, low, pi - 1);         // Ordenar los elementos antes del pivote
+        quickSortAux(vec, pi + 1, high);        // Ordenar los elementos después del pivote
+    }
+}
+
+// Función principal llamada desde el main
 void quicksort(int *vec) {
-	cout << "Esta funcion no ha sido implementada";	
+    quickSortAux(vec, 0, tamanoGlobal - 1);     // Llama a la función auxiliar
+    mostrarVec(vec);                            // Muestra el vector ordenado
+    cout << "\n";
+}
+
+//funcion para mostrar el vector ordenado
+void mostrarVec(int *vec){
+	for (int i = 0; i < tamanoGlobal; i++) {
+		cout << vec[i] << "\t";
+		if ((i + 1) % 5 == 0)
+			cout << "\n";
+	}
 }
