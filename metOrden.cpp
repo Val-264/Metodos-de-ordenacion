@@ -15,7 +15,7 @@ void restaurarVecGlobal(int *vecG, int *vecC);
 void seleccion(int *vec); 
 void insercion(int *vec);
 void burbuja(int *vec); 
-void combsort(int *vec, int n); 
+void combsort(int *vec, int n);     //n
 void cocktailsort(int *vec, int n); 
 void countingsort(int *vec, int n); 
 void binsort(int *vec); 
