@@ -125,7 +125,7 @@ void menu() {
                     	case 4:	restaurarVecGlobal(vectorGlobal, vectorCopia);	
         				{
             				auto start = chrono::high_resolution_clock::now();				
-							combsort(vectorGlobal);  										
+							combsort(vectorGlobal, tamanoGlobal);  										
             				auto end = chrono::high_resolution_clock::now();				
             				chrono::duration<double, milli> duration = end - start;	 		
             				cout << "Tiempo de ejecucion: " << duration.count() << " ms\n";	
@@ -135,7 +135,7 @@ void menu() {
                     	case 5: restaurarVecGlobal(vectorGlobal, vectorCopia);	
         				{
             				auto start = chrono::high_resolution_clock::now();				
-							cocktailsort(vectorGlobal);   										
+							cocktailsort(vectorGlobal, tamanoGlobal);   										
             				auto end = chrono::high_resolution_clock::now();				
             				chrono::duration<double, milli> duration = end - start;	 		
             				cout << "Tiempo de ejecucion: " << duration.count() << " ms\n";	
@@ -145,7 +145,7 @@ void menu() {
                     	case 6: restaurarVecGlobal(vectorGlobal, vectorCopia);	
         				{
             				auto start = chrono::high_resolution_clock::now();				
-							countingsort(vectorGlobal);    										
+							countingsort(vectorGlobal, tamanoGlobal);    										
             				auto end = chrono::high_resolution_clock::now();				
             				chrono::duration<double, milli> duration = end - start;	 		
             				cout << "Tiempo de ejecucion: " << duration.count() << " ms\n";	
