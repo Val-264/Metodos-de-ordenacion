@@ -249,17 +249,110 @@ void burbuja(int *vec) {
 	cout << "\n";		
 } 
 
-void combsort(int *vec) {
-	cout << "Esta funcion no ha sido implementada";	
-} 
-
-void cocktailsort(int *vec) {
-	cout << "Esta funcion no ha sido implementada";	
-} 
-
-void countingsort(int *vec) {
-	cout << "Esta funcion no ha sido implementada";	
+void combsort(int *vec, int n) {
+	// Paso 1: Inicializar variables para el algoritmo
+    int tamanoGlobal = n;       // tamaño del arreglo
+    float factorReduccion = 1.3; // Factor de reducción óptimo
+    bool huboIntercambio = true; // Bandera para saber si hubo intercambios
+    
+    // Paso 2: Implementar el algoritmo CombSort
+    while (tamanoGlobal > 1 || huboIntercambio) {
+        // Reducir la brecha según el factor de reducción
+        tamanoGlobal = static_cast<int>(tamanoGlobal / factorReduccion);
+        if (tamanoGlobal < 1) tamanoGlobal = 1;  // La brecha mínima es 1
+        
+        huboIntercambio = false;  // Reiniciar la bandera de intercambio
+        
+        // Comparar elementos con la brecha actual
+        for (int i = 0; i + tamanoGlobal < n; i++) {
+            if (vec[i] > vec[i + tamanoGlobal]) {
+                // Intercambiar elementos si están en orden incorrecto
+                int temporal = vec[i];
+                vec[i] = vec[i + tamanoGlobal];
+                vec[i + tamanoGlobal] = temporal;
+                huboIntercambio = true;
+            }
+        }
+    }
 }
+ 
+
+void cocktailsort(int *vec, int n) {
+	bool intercambio = true;
+    int inicio = 0;
+    int fin = n - 1;
+
+    while (intercambio) {
+        intercambio = false;
+        
+        // Paso de izquierda a derecha (como BubbleSort)
+        for (int i = inicio; i < fin; i++) {
+            if (vec[i] > vec[i + 1]) {
+                swap(vec[i], vec[i + 1]);
+                intercambio = true;
+            }
+        }
+        
+        if (!intercambio) break; // Si no hubo intercambios, terminar
+        
+        intercambio = false;
+        fin--; // Disminuir el fin porque el último elemento ya está ordenado
+        
+        // Paso de derecha a izquierda
+        for (int i = fin - 1; i >= inicio; i--) {
+            if (vec[i] > vec[i + 1]) {
+                swap(vec[i], vec[i + 1]);
+                intercambio = true;
+            }
+        }
+        
+        inicio++; // Aumentar el inicio porque el primer elemento ya está ordenado
+        tamanoGlobal = fin - inicio; // Actualizar tamaño global
+    }
+}
+
+
+
+void countingsort(int *vec, int n) {
+	if (n == 0) return;
+
+    // Encontrar el valor máximo y mínimo manualmente
+    int max_val = vec[0];
+    int min_val = vec[0];
+    
+    for (int i = 1; i < n; i++) {
+        if (vec[i] > max_val) {
+            max_val = vec[i];
+        }
+        if (vec[i] < min_val) {
+            min_val = vec[i];
+        }
+    }
+
+    int tamanoGlobal = max_val - min_val + 1;
+    
+    // Crear arreglo de conteo dinámicamente
+    int* conteo = new int[tamanoGlobal](); // Inicializa a ceros
+    
+    // Contar la frecuencia de cada elemento
+    for (int i = 0; i < n; i++) {
+        conteo[vec[i] - min_val]++;
+    }
+
+    // Reconstruir el vector ordenado
+    int indice = 0;
+    for (int val = min_val; val <= max_val; val++) {
+        while (conteo[val - min_val] > 0) {
+            vec[indice] = val;
+            indice++;
+            conteo[val - min_val]--;
+        }
+    }
+    
+    // Liberar memoria del arreglo dinámico
+    delete[] conteo;
+}
+
 
 void binsort(int *vec) {
 	cout << "Esta funcion no ha sido implementada";	
