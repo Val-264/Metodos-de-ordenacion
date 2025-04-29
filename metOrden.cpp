@@ -195,12 +195,16 @@ void restaurarVecGlobal(int *vecG, int *vecC) {
 void seleccion(int *vec) {
 	int menor, aux;
 	for(int i = 0; i < tamanoGlobal-1; i++){
-		menor=i;
+		menor=i; 
 		for(int j = i+1; j < tamanoGlobal; j++){
+			// Cambiar la posicion de menor a j si se cumple la condicon
 			if(vec[j] < vec[menor]){
-				menor = j;
+				menor = j; 
 			}
 		}
+
+		/* Intercambio de posiciones: pasar el numero menor 
+		a la derecha y el más grande a a la izuierda*/
 		if(menor != i){
 			aux = vec[i];
 			vec[i] = vec[menor];
@@ -217,12 +221,16 @@ void seleccion(int *vec) {
 void insercion(int *vec) {
 	int j = 0;
 	for(int i = 0; i < tamanoGlobal; i++){
-		int tem = vec[i];
-		j = i-1;
+		int tem = vec[i]; // Guardar el elemento actual a insertar
+		j = i-1; 
+
+		// Mover elementos mayores que tem hacia ala derecha
 		while(j >= 0 && tem < vec[j]){
-			vec[j+1] = vec[j];
-			j--;
+			vec[j+1] = vec[j]; /// Desplazar elemento
+			j--; 
 		}
+
+		// Insertar tem en su posicion correcta
 		vec[j+1]=tem;
 	}
 
@@ -231,11 +239,15 @@ void insercion(int *vec) {
 	cout << "\n";
 }
 
-//burbuja
+// Burbuja
 void burbuja(int *vec) {
 	int aux = 0;
+
+	//Recorrer todos los elementos del arreglo
 	for(int i = 0; i < tamanoGlobal; i++){
 		for(int j = 0; j < tamanoGlobal-1; j++){
+			/*Comparar elementos adyacentes e intercmabiarlos 
+			si están ene el orden incorrecto*/ 
 			if(vec[j+1] < vec[j]){
 				aux = vec[j];
 				vec[j] = vec[j+1];
@@ -360,19 +372,24 @@ void binsort(int *vec) {
 
 //Sell
 void shell(int *vec) {
-	int j, temp;
-	int inc = tamanoGlobal/2;
+	int j, temp; // Variables auxiliares para desplazamiento y almacenamiento temporal 
+	int inc = tamanoGlobal/2; // Inicializar el incremento a mitad del tamano
+	
+	// Continuar mientras el incremento sea mayor que cero
 	while(inc>0){
+		// Realizar ordenacion por insercion para cada subarreglo definido por el incremento
 		for(int i = inc; i < tamanoGlobal; i++){
-			j=i;
-			temp=vec[i];
+			j=i; // Posicion actual en el subarreglo
+			temp=vec[i]; // Almacenar temporlamente el valor a insertar 
+
+			// Mover elementos mayores que temp dentro del subarreglo 
 			while((j >= inc) && (vec[j-inc] > temp)){
-				vec[j] = vec[j-inc];
-				j = j-inc;
+				vec[j] = vec[j-inc]; // Desplazar elemento hacia adelante
+				j = j-inc; //Retroceder en el subarreglo
 			}
-			vec[j] = temp;
+			vec[j] = temp; // Colocar temp en su posicion correcta
 		}
-		inc/= 2;
+		inc/= 2; // Reducir el incremento a la mitad para la siguiente iteracion
 	}	
 
 	// Mostrar vector ordenado
