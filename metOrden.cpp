@@ -6,7 +6,7 @@
 #include <stdlib.h>   // Mejor usar <cstdlib> en lugar of <stdlib.h>
 #include <chrono>    // libreria para medir el tiempo que tarda en ejecutarse
 
-using namespace std;
+using namespace std; 
 
 // Prototipos
 void menu();
@@ -380,6 +380,7 @@ void cocktailsort(int *vec, int n) {
 	bool intercambio = true;
     int inicio = 0;
     int fin = n - 1;
+    int copiaTamanoGlobal= tamanoGlobal;
 
     while (intercambio) {
         intercambio = false;
@@ -408,6 +409,7 @@ void cocktailsort(int *vec, int n) {
         inicio++; // Aumentar el inicio porque el primer elemento ya está ordenado
         tamanoGlobal = fin - inicio; // Actualizar tamaño global
     }
+    tamanoGlobal=copiaTamanoGlobal;     //Restaurar TamanoGlobal a su valor original
     // Mostrar resultados 
     mostrarVec(vec);
     cout << "\n";
@@ -477,7 +479,7 @@ void binsort(int *vec) {
     
         // Paso 3: Contar frecuencias
         for(int i = 0; i < tamanoGlobal; i++) {
-            contador[vec[i] - min_val]++;
+            contador[vec[i] - min_val]++; 
         }
     
         // Paso 4: Reconstruir el array ordenado
