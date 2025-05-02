@@ -287,6 +287,7 @@ void cocktailsort(int *vec, int n) {
 	bool intercambio = true;
     int inicio = 0;
     int fin = n - 1;
+    int copiaTamanoGlobal= tamanoGlobal; // Guardar el tamaño original para restaurarlo al final
 
     while (intercambio) {
         intercambio = false;
@@ -311,7 +312,7 @@ void cocktailsort(int *vec, int n) {
                 intercambio = true;
             }
         }
-        
+        tamanoGlobal=copiaTamanoGlobal;     //Restaurar TamanoGlobal a su valor original
         inicio++; // Aumentar el inicio porque el primer elemento ya está ordenado
         tamanoGlobal = fin - inicio; // Actualizar tamaño global
     }
@@ -367,40 +368,8 @@ void countingsort(int *vec, int n) {
 }
 
 void binsort(int *vec) {
-	
-        if(tamanoGlobal < 2) return;
-    
-        // Paso 1: Encontrar mínimo y máximo
-        int min_val = vec[0];
-        int max_val = vec[0];
-        for(int i = 1; i < tamanoGlobal; i++) {
-            if(vec[i] < min_val) min_val = vec[i];
-            if(vec[i] > max_val) max_val = vec[i];
-        }
-    
-        // Paso 2: Crear array de conteo
-        int rango = max_val - min_val + 1;
-        int* contador = new int[rango]();
-    
-        // Paso 3: Contar frecuencias
-        for(int i = 0; i < tamanoGlobal; i++) {
-            contador[vec[i] - min_val]++;
-        }
-    
-        // Paso 4: Reconstruir el array ordenado
-        int indice = 0;
-        for(int i = 0; i < rango; i++) {
-            while(contador[i] > 0) {
-                vec[indice++] = i + min_val;
-                contador[i]--;
-            }
-        }
-    
-        delete[] contador;
-    
-        // Mostrar resultados 
-        mostrarVec(vec);
-        cout << "\n";
+    // Reutilizar countingsort para evitar redundancia
+    countingsort(vec, tamanoGlobal);
 } 
 
 //Sell
