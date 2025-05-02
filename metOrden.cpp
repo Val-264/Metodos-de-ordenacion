@@ -275,7 +275,7 @@ void restaurarVecGlobal(int *vecG, int *vecC) {
 	}
 }
 
-//Seleccion
+// Seleccion
 void seleccion(int *vec) {
 	int menor, aux;
 	for(int i = 0; i < tamanoGlobal-1; i++){
@@ -345,6 +345,7 @@ void burbuja(int *vec) {
 	cout << "\n";		
 } 
 
+// Combsort
 void combsort(int *vec, int n) {
 	// Paso 1: Inicializar variables para el algoritmo
     int tamanoGlobal = n;       // tamaño del arreglo
@@ -375,7 +376,7 @@ void combsort(int *vec, int n) {
     cout << "\n";
 }
  
-
+// Cocktailsort
 void cocktailsort(int *vec, int n) {
 	bool intercambio = true;
     int inicio = 0;
@@ -416,7 +417,7 @@ void cocktailsort(int *vec, int n) {
 }
 
 
-
+// Countingsort
 void countingsort(int *vec, int n) {
 	if (n == 0) return;
 
@@ -461,6 +462,7 @@ void countingsort(int *vec, int n) {
     cout << "\n";
 }
 
+// Binsort
 void binsort(int *vec) {
 	
         if(tamanoGlobal < 2) return;
@@ -498,7 +500,7 @@ void binsort(int *vec) {
         cout << "\n";
 } 
 
-//Sell
+// Shell
 void shell(int *vec) {
 	int j, temp; // Variables auxiliares para desplazamiento y almacenamiento temporal 
 	int inc = tamanoGlobal/2; // Inicializar el incremento a mitad del tamano
@@ -525,7 +527,7 @@ void shell(int *vec) {
 	cout << "\n";	
 }
 
-//Shakesort
+// Shakesort
 void shakesort(int *vec) {
 	bool swapped = true;
 	int start = 0;
