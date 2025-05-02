@@ -368,8 +368,60 @@ void countingsort(int *vec, int n) {
 }
 
 void binsort(int *vec) {
-    // Reutilizar countingsort para evitar redundancia
-    countingsort(vec, tamanoGlobal);
+    if (tamanoGlobal == 0) return;
+
+    // Encontrar el valor máximo en el arreglo
+    int max_val = vec[0];
+    for (int i = 1; i < tamanoGlobal; i++) {
+        if (vec[i] > max_val) {
+            max_val = vec[i];
+        }
+    }
+
+    // Crear un arreglo de punteros para las cubetas (bins)
+    int **bins = new int*[tamanoGlobal];
+    int *binSizes = new int[tamanoGlobal](); // Arreglo para almacenar el tamaño de cada bin
+    for (int i = 0; i < tamanoGlobal; i++) {
+        bins[i] = new int[tamanoGlobal]; // Asignar espacio para cada bin
+    }
+
+    // Distribuir los elementos en las cubetas correspondientes
+    for (int i = 0; i < tamanoGlobal; i++) {
+        int index = (vec[i] * tamanoGlobal) / (max_val + 1); // Normalizar el índice
+        bins[index][binSizes[index]++] = vec[i];
+    }
+
+    // Ordenar cada cubeta individualmente (usando inserción directa)
+    for (int i = 0; i < tamanoGlobal; i++) {
+        for (int j = 1; j < binSizes[i]; j++) {
+            int temp = bins[i][j];
+            int k = j - 1;
+            while (k >= 0 && bins[i][k] > temp) {
+                bins[i][k + 1] = bins[i][k];
+                k--;
+            }
+            bins[i][k + 1] = temp;
+        }
+    }
+
+    // Reconstruir el vector ordenado desde las cubetas
+    int indice = 0;
+    for (int i = 0; i < tamanoGlobal; i++) {
+        for (int j = 0; j < binSizes[i]; j++) {
+            vec[indice++] = bins[i][j];
+        }
+    }
+
+    // Liberar memoria asignada dinámicamente
+    for (int i = 0; i < tamanoGlobal; i++) {
+        delete[] bins[i];
+    }
+    delete[] bins;
+    delete[] binSizes;
+
+    // Mostrar vector ordenado
+    mostrarVec(vec);
+    cout << "\n";
 } 
 
 //Sell
