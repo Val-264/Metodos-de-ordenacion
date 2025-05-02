@@ -50,23 +50,23 @@ void menu() {
     do {
         // Mostrar las opciones del menú
         cout << "SELECCIONA UN METODO:\n";
-        cout << "SELECCION...............1\n";
-        cout << "INSERCCION..............2\n";
-        cout << "BURBUJA.................3\n";
-        cout << "COMBSORT................4\n";
-        cout << "COCKTAILSORT............5\n";
-        cout << "COUNTINGSORT............6\n";
-        cout << "BINSORT.................7\n";
-        cout << "SHELL...................8\n";
-        cout << "SHAKERSORT..............9\n";
-        cout << "GNOME SORT..............10\n";
-        cout << "MERGESORT...............11\n";
-        cout << "RADIXSORT...............12\n";
-        cout << "QUICKSORT...............13\n";
-        cout << "Pedir tamano del vector.14\n";
-        cout << "Liberar espacio en memoria.15\n";
-        cout << "Salir...................16\n";
-        cout << "Elije una opcion: ";
+        cout << "SELECCION...................1\n";
+        cout << "INSERCCION..................2\n";
+        cout << "BURBUJA.....................3\n";
+        cout << "COMBSORT....................4\n";
+        cout << "COCKTAILSORT................5\n";
+        cout << "COUNTINGSORT................6\n";
+        cout << "BINSORT.....................7\n";
+        cout << "SHELL.......................8\n";
+        cout << "SHAKERSORT..................9\n";
+        cout << "GNOME SORT..................10\n";
+        cout << "MERGESORT...................11\n";
+        cout << "RADIXSORT...................12\n";
+        cout << "QUICKSORT...................13\n";
+        cout << "PEDIR TAMANO DEL VECTOR.....14\n";
+        cout << "LIBERAR ESPACIO EN MEMORIA..15\n";
+        cout << "SALIR.......................16\n";
+        cout << "ELIGE UNA OPCION: ";
         cin >> opc;
 
         switch (opc) {
