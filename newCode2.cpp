@@ -312,10 +312,10 @@ void cocktailsort(int *vec, int n) {
                 intercambio = true;
             }
         }
-        tamanoGlobal=copiaTamanoGlobal;     //Restaurar TamanoGlobal a su valor original
         inicio++; // Aumentar el inicio porque el primer elemento ya está ordenado
         tamanoGlobal = fin - inicio; // Actualizar tamaño global
     }
+    tamanoGlobal=copiaTamanoGlobal;     //Restaurar TamanoGlobal a su valor original
     // Mostrar resultados 
     mostrarVec(vec);
     cout << "\n";
